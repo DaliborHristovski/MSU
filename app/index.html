@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="mk">
+
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <!-- build:css assets/styles/styles.css-->
+    <link rel='stylesheet' href="./temp/styles/styles.css">
+    <!-- endbuild -->
+
+    <!-- build:js assets/scripts/Vendor.js-->
+    <script src="/temp/scripts/Vendor.js"></script>
+    <!-- endbuild-->
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="wrapper">
+            <div class="site-header__logo">
+                <div class="site-header__logo__graphic icon icon--msu">МСУ</div>
+            </div>
+            <div class="site-header__menu-icon">
+                <div class="site-header__menu-icon__middle"></div>
+            </div>
+
+            <div class="site-header__menu-content">
+                <div class="site-header__btn_container">
+                    <a href="#" class="btn open-modal">Инструкции</a>
+                </div>
+                <nav class="primary-nav primary-nav--pull-right">
+                    <ul>
+                        <li><a href="https://msu.edu.mk/">МСУ</a></li>
+                        ,
+                        <li><a href="#our-beginning" id="our-beginning-link">Историјат</a></li>
+                        <li><a href="#features" id="features-link">Мапа на Сајтот</a></li>
+                        <li><a href="#contact" id="contact-link">Контакт</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <div class="large-hero">
+        <!--
+        <picture>
+          <source srcset="assets/images/hero--large.jpg 1920w, assets/images/hero--large-hi-dpi.jpg 3840w" media="(min-width:1380px)">
+          <source srcset="assets/images/hero--medium.jpg 1380w, assets/images/hero--medium-hi-dpi.jpg 2760w" media="(min-width:990px)">
+          <source srcset="assets/images/hero--small.jpg 990w, assets/images/hero--small-hi-dpi.jpg 1980w" media="(min-width:640px)">
+          <img srcset="assets/images/hero--smaller.jpg 640w, assets/images/hero--smaller-hi-dpi.jpg 1280w" alt="Costal view od ocean and mountains" class="large-hero__image">
+        </picture>
+    -->
+        <picture>
+            <img srcset="assets/images/eucenje_msu_header_page.jpg" alt="Е-учење" class="large-hero__image">
+        </picture>
+        <div class="large-hero__text-content">
+            <div class="wrapper">
+                <h1 class="large-hero__title">Профил</h1>
+                <h2 class="large-hero__subtitle">Почетна/Профил</h2>
+                <p class="large-hero__description">Најави се за да можеш да ги користиш услугите.</p>
+                <p><a href="#" class="btn btn--orange btn--large open-modal">Најави се</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-section">
+    <div class="wrapper">
+    <div class="form-box">
+        <h1>Најави се</h1>
+        <div class="form-box__input">
+            <span class="icon icon--user form-box__icon"></span>
+            <input type="text" name="username" class="form-control" required="required" placeholder="Број на индекс" />
+        </div>
+        <div class="form-box__input">
+            <span class="icon icon--key form-box__icon"></span>
+            <input id="myInput" type="password" name="password" class="form-control" required="required" placeholder="Лозинка" />
+            <span id="eye-icon" class="eye" onclick="myFunction()">
+            <span id="hide1" class="icon icon--eye form-box__icon"></span>
+            <span id="hide2" class="icon icon--eye-slash form-box__icon"></span>
+            </span>
+        </div>
+        <button type="button" class="login-btn">Најави се</button>
+    
+    </div>
+    <script>
+        function myFunction(){
+        let x = document.getElementById("myInput");
+        let y = document.getElementById("hide1");
+        let z = document.getElementById("hide2");
+            if(x.type === 'password'){
+            x.type = "text";
+            y.display = block;
+            z.display = none;  
+        }
+        else{
+            x.type = "password";
+            y.display = none;
+            z.display = block;  
+        }
+        }
+    </script>
+     </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="wrapper">
+            <p><span class="site-footer__text">Copyright &copy; 2021 HD productions. All rights reserved.</span>
+                
+            </p>
+        </div>
+    </footer>
+
+    <div class="modal">
+        <div class="modal__inner">
+            <h2 class="section-title section-title--blue section-title--less-margin">
+                <span class="icon icon--mail section-title__icon"></span><strong>Инструкции</strong>
+            </h2>
+
+            <div class="wrapper wrapper--narrow">
+                <p class="modal__description">Connect with us on any of the platforms below!</p>
+            </div>
+            <div class="social-icons">
+                <a href="" class="social-icons__icon"> <span class="icon icon--facebook"></span></a>
+                <a href="" class="social-icons__icon"> <span class="icon icon--twitter"></span></a>
+                <a href="" class="social-icons__icon"> <span class="icon icon--instagram"></span></a>
+                <a href="" class="social-icons__icon"> <span class="icon icon--youtube"></span></a>
+            </div>
+        </div>
+        <div class="modal__close">X</div>
+    </div>
+
+    <!-- build:js assets/scripts/App.js-->
+    <script src="/temp/scripts/App.js"></script>
+    <!--  endbuild -->
+</body>
+
+</html>
