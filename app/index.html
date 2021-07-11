@@ -65,6 +65,7 @@
     <div class="wrapper">
     <div class="form-box">
         <h1>Најави се</h1>
+        <form method="POST" action="/login">
         <div class="form-box__input">
             <span class="icon icon--user form-box__icon"></span>
             <input type="text" name="username" class="form-control" required="required" placeholder="Број на индекс" />
@@ -77,7 +78,8 @@
             <span id="hide2" class="icon icon--eye-slash form-box__icon"></span>
             </span>
         </div>
-        <button type="button" class="login-btn">Најави се</button>
+        <button type="submit" class="login-btn">Најави се</button>
+    </form>
     
     </div>
     <script>
