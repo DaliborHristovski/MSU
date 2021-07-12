@@ -476,6 +476,18 @@ a{
 
 .large-hero__image{
         display: block;
+        min-height: 300px;
+    }
+
+@media(min-width:1010px){
+
+.large-hero__image{
+            width: 80%;
+            overflow: hidden;
+            max-height: 600px;
+            -webkit-transform: translateX(10%);
+                    transform: translateX(10%)
+    }
     }
 
 .large-hero__text-content{
@@ -498,7 +510,7 @@ a{
 
 .large-hero__title{
         font-weight: 300;
-        color: #2f5572;
+        color: #FFF;
         margin: 0;
         font-size: 2.4rem;
         text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
@@ -517,8 +529,8 @@ a{
 
 .large-hero__subtitle{
         font-weight: 300;
-        color: rgb(255, 0, 0);
-        text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+        color: rgb(199, 204, 250);
+        text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.753);
         font-size: 1.5rem;
         margin: 0;
 
@@ -625,6 +637,10 @@ margin-right: auto;
         padding-right: 18px
 }
     }
+
+.wrapper--colored{
+    background-color: rgba(0, 0, 0, .3);
+}
 
 .wrapper .wrapper{
     padding-right: 0;
@@ -1019,7 +1035,7 @@ margin-right: auto;
 Instead edit gulp/templates/sprite*/
 
 .icon {
-    background-image: url('../../assets/images/sprites/sprite-7ea028ca.svg');
+    background-image: url('../../assets/images/sprites/sprite-1c3106b7.svg');
  }
 
 .no-svg .icon{
@@ -1035,13 +1051,13 @@ Instead edit gulp/templates/sprite*/
 .icon--eye{
      width: 16px;
      height: 16px;
-     background-position: 46.49561403508772% 40%;
+     background-position: 59.65350877192982% 40%;
  }
 
 .icon--eye-slash{
      width: 16px;
      height: 16px;
-     background-position: 53.51315789473684% 40%;
+     background-position: 66.67105263157895% 40%;
  }
 
 .icon--facebook{
@@ -1072,6 +1088,12 @@ Instead edit gulp/templates/sprite*/
      width: 24.01px;
      height: 24.1px;
      background-position: 83.64016546206645% 97.47860434496378%;
+ }
+
+.icon--logo-msu{
+     width: 30px;
+     height: 30px;
+     background-position: 49.53738317757009% 43.83561643835616%;
  }
 
 .icon--mail{
@@ -1529,12 +1551,19 @@ Instead edit gulp/templates/sprite*/
     }
 
 .form-box__input input {
-            width: 90%;
+            width: 80%;
             border: none;
             outline: none;
             background: transparent;
             color: #FFF;
         }
+
+@media(min-width:800px){
+
+.form-box__input input {
+                width: 90%
+        }
+    }
 
 .form-box ::-webkit-input-placeholder{
         color: #ccc;
@@ -1572,6 +1601,22 @@ Instead edit gulp/templates/sprite*/
         position: absolute;
         -webkit-transform: translateX(-10px);
                 transform: translateX(-10px);
+    }
+
+@media(min-width:530px){
+
+.form-box .eye{
+            -webkit-transform: translateX(30px);
+                    transform: translateX(30px)
+    }
+    }
+
+@media(min-width:800px){
+
+.form-box .eye{
+            -webkit-transform: translateX(10px);
+                    transform: translateX(10px)
+    }
     }
 
 .form-box .login-btn{

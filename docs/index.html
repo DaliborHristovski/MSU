@@ -4,16 +4,16 @@
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1" />
     
-    <link rel="stylesheet" href="assets/styles/styles-3b0ace9d4a.css"/>
+    <link rel="stylesheet" href="assets/styles/styles-04c5619d4c.css"/>
 
-    <script src="assets/scripts/Vendor-847ed6edd9.js"></script>
+    <script src="assets/scripts/Vendor-62387867cd.js"></script>
 </head>
 
 <body>
     <header class="site-header">
         <div class="wrapper">
             <div class="site-header__logo">
-                <div class="site-header__logo__graphic icon icon--msu">МСУ</div>
+                <div class="site-header__logo__graphic icon icon--logo-msu">МСУ</div>
             </div>
             <div class="site-header__menu-icon">
                 <div class="site-header__menu-icon__middle"></div>
@@ -48,18 +48,20 @@
             <img srcset="assets/images/eucenje_msu_header_page.jpg" alt="Е-учење" class="large-hero__image">
         </picture>
         <div class="large-hero__text-content">
-            <div class="wrapper">
+            <div class="wrapper wrapper--colored">
                 <h1 class="large-hero__title">Профил</h1>
-                <h2 class="large-hero_subtitle">Почетна/Профил</h2>
+                <h2 class="large-hero__subtitle">Почетна/Профил</h2>
                 <p class="large-hero__description">Најави се за да можеш да ги користиш услугите.</p>
-                <p><a href="#" class="btn btn--orange btn--large open-modal">Get Started Today</a></p>
+                <p><a href="#" class="btn btn--orange btn--large open-modal">Најави се</a></p>
             </div>
         </div>
     </div>
 
 
+    <div class="wrapper">
     <div class="form-box">
         <h1>Најави се</h1>
+        <form method="POST" action="/login">
         <div class="form-box__input">
             <span class="icon icon--user form-box__icon"></span>
             <input type="text" name="username" class="form-control" required="required" placeholder="Број на индекс" />
@@ -67,21 +69,39 @@
         <div class="form-box__input">
             <span class="icon icon--key form-box__icon"></span>
             <input id="myInput" type="password" name="password" class="form-control" required="required" placeholder="Лозинка" />
-            <span id="eye-icon" class="eye" onclick="conection.dumy()">
+            <span id="eye-icon" class="eye" onclick="myFunction()">
             <span id="hide1" class="icon icon--eye form-box__icon"></span>
             <span id="hide2" class="icon icon--eye-slash form-box__icon"></span>
             </span>
         </div>
-        <button type="button" class="login-btn">Најави се</button>
+        <button type="submit" class="login-btn">Најави се</button>
+    </form>
     
     </div>
-
-
+    <script>
+        function myFunction(){
+        let x = document.getElementById("myInput");
+        let y = document.getElementById("hide1");
+        let z = document.getElementById("hide2");
+            if(x.type === 'password'){
+            x.type = "text";
+            y.display = block;
+            z.display = none;  
+        }
+        else{
+            x.type = "password";
+            y.display = none;
+            z.display = block;  
+        }
+        }
+    </script>
+     </div>
+   
 
     <footer class="site-footer">
         <div class="wrapper">
             <p><span class="site-footer__text">Copyright &copy; 2021 HD productions. All rights reserved.</span>
-                <a href="#" class="btn btn--orange open-modal">Get in Touch</a>
+                
             </p>
         </div>
     </footer>
@@ -105,7 +125,7 @@
         <div class="modal__close">X</div>
     </div>
 
-    <script src="assets/scripts/App-d4578e2034.js"></script>
+    <script src="assets/scripts/App-62cf314a3c.js"></script>
 </body>
 
 </html>

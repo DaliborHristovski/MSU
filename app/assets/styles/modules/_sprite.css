@@ -2,7 +2,7 @@
 Instead edit gulp/templates/sprite*/
 
  .icon {
-    background-image: url('../../assets/images/sprites/sprite-7ea028ca.svg');
+    background-image: url('../../assets/images/sprites/sprite-1c3106b7.svg');
  }
 
  .no-svg .icon{
@@ -18,13 +18,13 @@ Instead edit gulp/templates/sprite*/
  .icon--eye{
      width: 16px;
      height: 16px;
-     background-position: 46.49561403508772% 40%;
+     background-position: 59.65350877192982% 40%;
  }
 
  .icon--eye-slash{
      width: 16px;
      height: 16px;
-     background-position: 53.51315789473684% 40%;
+     background-position: 66.67105263157895% 40%;
  }
 
  .icon--facebook{
@@ -55,6 +55,12 @@ Instead edit gulp/templates/sprite*/
      width: 24.01px;
      height: 24.1px;
      background-position: 83.64016546206645% 97.47860434496378%;
+ }
+
+ .icon--logo-msu{
+     width: 30px;
+     height: 30px;
+     background-position: 49.53738317757009% 43.83561643835616%;
  }
 
  .icon--mail{

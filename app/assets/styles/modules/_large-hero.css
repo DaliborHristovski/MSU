@@ -4,6 +4,16 @@
 
     &__image{
         display: block;
+        min-height: 300px;
+
+        @mixin atLarge{
+            width: 80%;
+            overflow: hidden;
+            max-height: 600px;
+            transform: translateX(10%)
+           
+            
+        }
     }
 
     &__text-content{
@@ -22,7 +32,7 @@
 
     &__title{
         font-weight: 300;
-        color: $mainBlue;
+        color: #FFF;
         margin: 0;
         font-size: 2.4rem;
         text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
@@ -35,8 +45,8 @@
     
     &__subtitle{
         font-weight: 300;
-        color: rgb(255, 0, 0);
-        text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+        color: rgb(199, 204, 250);
+        text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.753);
         font-size: 1.5rem;
         margin: 0;
         

@@ -39,7 +39,9 @@ margin-right: auto;
         padding-right: 18px;
     }
 }
-
+&--colored{
+    background-color: rgba(0, 0, 0, .3);
+}
 .wrapper{
     padding-right: 0;
     padding-left: 0;

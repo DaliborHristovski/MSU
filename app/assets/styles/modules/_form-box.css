@@ -5,11 +5,12 @@
     padding: 50px 0;
     color: #FFF;
     box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.5);
+    
 
     @mixin atMedium{
         width: 80%;
     }
-    
+ 
 
     h1{
         text-align: center;
@@ -22,13 +23,18 @@
         border-bottom: 1px solid #FFF;
         padding-top: 10px;
         padding-bottom: 5px;
+        
 
         input {
-            width: 90%;
+            width: 80%;
             border: none;
             outline: none;
             background: transparent;
             color: #FFF;
+
+            @mixin atMedium{
+                width: 90%;
+            }
         }
     }
 
@@ -53,6 +59,12 @@
     .eye{
         position: absolute;
         transform: translateX(-10px);
+        @mixin atSmall{
+            transform: translateX(30px);
+        }
+        @mixin atMedium{
+            transform: translateX(10px);
+        }
     }
     .login-btn{
         margin: 40px auto 20px;
