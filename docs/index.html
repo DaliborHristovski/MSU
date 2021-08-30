@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1" />
     
-    <link rel="stylesheet" href="assets/styles/styles-04c5619d4c.css"/>
+    <link rel="stylesheet" href="assets/styles/styles-ba28356f4b.css"/>
 
     <script src="assets/scripts/Vendor-62387867cd.js"></script>
 </head>
@@ -13,7 +13,7 @@
     <header class="site-header">
         <div class="wrapper">
             <div class="site-header__logo">
-                <div class="site-header__logo__graphic icon icon--logo-msu">МСУ</div>
+                <div class="site-header__logo__graphic icon icon--logo-HD">МСУ</div>
             </div>
             <div class="site-header__menu-icon">
                 <div class="site-header__menu-icon__middle"></div>
@@ -28,7 +28,7 @@
                         <li><a href="https://msu.edu.mk/">МСУ</a></li>
                         ,
                         <li><a href="#our-beginning" id="our-beginning-link">Историјат</a></li>
-                        <li><a href="#features" id="features-link">Мапа на Сајтот</a></li>
+                        <li><a href="#mapa" id="mapa-link">Мапа на Сајтот</a></li>
                         <li><a href="#contact" id="contact-link">Контакт</a></li>
                     </ul>
                 </nav>
@@ -52,14 +52,14 @@
                 <h1 class="large-hero__title">Профил</h1>
                 <h2 class="large-hero__subtitle">Почетна/Профил</h2>
                 <p class="large-hero__description">Најави се за да можеш да ги користиш услугите.</p>
-                <p><a href="#" class="btn btn--orange btn--large open-modal">Најави се</a></p>
+                <p><a href="#najavi-se" id="najavi-se-link" class="btn btn--orange btn--large">Најави се</a></p>
             </div>
         </div>
     </div>
 
 
     <div class="wrapper">
-    <div class="form-box">
+    <div class="form-box" id="najavi-se" data-matching-link="#najavi-se-link">
         <h1>Најави се</h1>
         <form method="POST" action="/login">
         <div class="form-box__input">
@@ -99,7 +99,7 @@
    
 
     <footer class="site-footer">
-        <div class="wrapper">
+        <div class="wrapper" id="mapa" data-matching-link="#mapa-link">
             <p><span class="site-footer__text">Copyright &copy; 2021 HD productions. All rights reserved.</span>
                 
             </p>

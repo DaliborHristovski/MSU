@@ -1035,11 +1035,17 @@ margin-right: auto;
 Instead edit gulp/templates/sprite*/
 
 .icon {
-    background-image: url('../../assets/images/sprites/sprite-1c3106b7.svg');
+    background-image: url('../../assets/images/sprites/sprite-32f00b91.svg');
  }
 
 .no-svg .icon{
     background-image: url('../../assets/images/sprites/');
+ }
+
+.icon--HD{
+     width: 29px;
+     height: 38px;
+     background-position: 49.306976744186045% 46.3768115942029%;
  }
 
 .icon--comment{
@@ -1051,13 +1057,13 @@ Instead edit gulp/templates/sprite*/
 .icon--eye{
      width: 16px;
      height: 16px;
-     background-position: 59.65350877192982% 40%;
+     background-position: 72.37280701754386% 40%;
  }
 
 .icon--eye-slash{
      width: 16px;
      height: 16px;
-     background-position: 66.67105263157895% 40%;
+     background-position: 56.14035087719298% 70%;
  }
 
 .icon--facebook{
@@ -1093,7 +1099,7 @@ Instead edit gulp/templates/sprite*/
 .icon--logo-msu{
      width: 30px;
      height: 30px;
-     background-position: 49.53738317757009% 43.83561643835616%;
+     background-position: 63.08878504672897% 43.83561643835616%;
  }
 
 .icon--mail{
@@ -1210,7 +1216,7 @@ Instead edit gulp/templates/sprite*/
         -webkit-transform-origin: 50% 0;
                 transform-origin: 50% 0;
         background-color: #2f5572;
-        padding: 25px 36px;
+        padding: 25px 50px;
     }
 
 @media(min-width:800px){

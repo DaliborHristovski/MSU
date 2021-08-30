@@ -4,13 +4,9 @@
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1" />
     
-    <!-- build:css assets/styles/styles.css-->
-    <link rel='stylesheet' href="./temp/styles/styles.css">
-    <!-- endbuild -->
+    <link rel="stylesheet" href="assets/styles/styles-ba28356f4b.css"/>
 
-    <!-- build:js assets/scripts/Vendor.js-->
-    <script src="/temp/scripts/Vendor.js"></script>
-    <!-- endbuild-->
+    <script src="assets/scripts/Vendor-62387867cd.js"></script>
 </head>
 
 <body>
@@ -53,56 +49,62 @@
         </picture>
         <div class="large-hero__text-content">
             <div class="wrapper wrapper--colored">
-                <h1 class="large-hero__title">Профил</h1>
-                <h2 class="large-hero__subtitle">Почетна/Профил</h2>
-                <p class="large-hero__description">Најави се за да можеш да ги користиш услугите.</p>
-                <p><a href="#najavi-se" id="najavi-se-link" class="btn btn--orange btn--large">Најави се</a></p>
+                <h1 class="large-hero__title">
+                    Добредојде 
+                </h1>
+                <h2 class="large-hero__subtitle"> <%= sInfo[0].ImeIPrezime %> </h2>
+                <p class="large-hero__description">Избери до 5 предмети за пријавување.</p>
+                <p><a href="#prijavi" id="prijavi" class="btn btn--orange btn--large">Пријави</a></p>
             </div>
         </div>
     </div>
 
 
-    <div class="wrapper">
-    <div class="form-box" id="najavi-se" data-matching-link="#najavi-se-link">
-        <h1>Најави се</h1>
-        <form method="POST" action="/login">
-        <div class="form-box__input">
-            <span class="icon icon--user form-box__icon"></span>
-            <input type="text" name="username" class="form-control" required="required" placeholder="Број на индекс" />
+    <div class="wrapper" id="content_fill" style="padding-top: 10px; width: 100%;">
+        <div class="generic-content-container" id="prijavi" data-matching-link="#prijavi">
+            <h1>Пријавени Предмети</h1>
+            <table class="table" style="text-align:center; width: 90%; border-style: ridge;">
+                <thead style="background-color: paleturquoise;">
+                    <tr>
+                    <th>Број на <br>пријава</th> 
+                    <th>Име на Предмет</th> 
+                    <th>Код на Предмет</th> 
+                    <th>Семестар</th> 
+                    <th>Кредити</th> 
+                    <th>Учебна<br>Година</th> 
+                    <th>Професор</th>
+                    </tr>
+                </thead>
+                    <% appInfo.forEach(prijava =>{ %>
+                        <tr> 
+                          <td><%= prijava.ID %></td>
+                          <td><%= prijava.ImeNaPredmet %>
+                          <td><%= prijava.KodNaPredmet %></td>
+                          <td><%= prijava.Semestar %></td>
+                          <td ><%= prijava.Krediti %></td>
+                          <td><%= prijava.UcebnaGodina %></td>
+                          <td><%= prijava.Profesor %></td>
+                        </tr> 
+                    <% }) %>              
+            </table>
+
+            <h1>Предмети за Пријавуање</h1>
         </div>
-        <div class="form-box__input">
-            <span class="icon icon--key form-box__icon"></span>
-            <input id="myInput" type="password" name="password" class="form-control" required="required" placeholder="Лозинка" />
-            <span id="eye-icon" class="eye" onclick="myFunction()">
-            <span id="hide1" class="icon icon--eye form-box__icon"></span>
-            <span id="hide2" class="icon icon--eye-slash form-box__icon"></span>
-            </span>
+
+        <div class="generic-content-container" align="right" style="transform: translateX(-5%); padding: 20px;">
+        <form action="" method="post">
+            <select class="select" name="taskOption" id="predmeti_izbor">
+                <% prInfo.forEach(predmet =>{ %>
+                    <option value= "<%= predmet.AP_ID %>" >  <%= predmet.ImeNaPredmet %> </option>
+                <% }) %>            
+            </select>
+        </form>
+        
         </div>
-        <button type="submit" class="login-btn">Најави се</button>
-    </form>
-    
     </div>
-    <script>
-        function myFunction(){
-        let x = document.getElementById("myInput");
-        let y = document.getElementById("hide1");
-        let z = document.getElementById("hide2");
-            if(x.type === 'password'){
-            x.type = "text";
-            y.display = block;
-            z.display = none;  
-        }
-        else{
-            x.type = "password";
-            y.display = none;
-            z.display = block;  
-        }
-        }
-    </script>
-     </div>
    
 
-    <footer class="site-footer">
+    <footer class="site-footer" style="position: relative; bottom:0; width:100%; padding-top: 10px;">
         <div class="wrapper" id="mapa" data-matching-link="#mapa-link">
             <p><span class="site-footer__text">Copyright &copy; 2021 HD productions. All rights reserved.</span>
                 
@@ -129,9 +131,7 @@
         <div class="modal__close">X</div>
     </div>
 
-    <!-- build:js assets/scripts/App.js-->
-    <script src="/temp/scripts/App.js"></script>
-    <!--  endbuild -->
+    <script src="assets/scripts/App-62cf314a3c.js"></script>
 </body>
 
 </html>
