@@ -4,12 +4,19 @@ browserSync= require('browser-sync').create();;
 
 gulp.task('watch', function(){
 
+    // browserSync.init({
+    //     notify: false,
+    //     server:{
+    //         baseDir: "app"
+    //     }
+    // });
     browserSync.init({
         notify: false,
-        server:{
-            baseDir: "app"
-        }
+        proxy: "http://localhost:8000",
+        files: ["./app/**/*.*"]
     });
+    
+
 
     watch('./app/index.html', function(){
        browserSync.reload();

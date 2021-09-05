@@ -14,7 +14,7 @@
         background-color: rgba($mainBlue,0.55); 
         
         &--dark{
-            background-color: rgba(23,51,72,.85);
+            background-color: rgba($mainBlue,.85);
         }
     }
     
@@ -33,7 +33,7 @@
         transition: transform .3s ease-out;
         transform-origin: 50% 0;
         background-color: $mainBlue;
-        padding: 25px 50px;
+        padding: 27px 50px;
         
         @mixin atMedium {
             left: auto;

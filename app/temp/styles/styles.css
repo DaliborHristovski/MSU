@@ -1035,7 +1035,7 @@ margin-right: auto;
 Instead edit gulp/templates/sprite*/
 
 .icon {
-    background-image: url('../../assets/images/sprites/sprite-32f00b91.svg');
+    background-image: url('../../assets/images/sprites/sprite-ab31a1de.svg');
  }
 
 .no-svg .icon{
@@ -1043,69 +1043,63 @@ Instead edit gulp/templates/sprite*/
  }
 
 .icon--HD{
-     width: 29px;
-     height: 38px;
-     background-position: 49.306976744186045% 46.3768115942029%;
+     width: 92px;
+     height: 54px;
+     background-position: 0 0;
  }
 
 .icon--comment{
      width: 64px;
      height: 64px;
-     background-position: 0 0;
+     background-position: 0 45.76271186440678%;
  }
 
 .icon--eye{
      width: 16px;
      height: 16px;
-     background-position: 72.37280701754386% 40%;
+     background-position: 98.7489539748954% 50.60843373493976%;
  }
 
 .icon--eye-slash{
      width: 16px;
      height: 16px;
-     background-position: 56.14035087719298% 70%;
+     background-position: 98.74476987447699% 65.12650602409637%;
  }
 
 .icon--facebook{
      width: 21.23px;
      height: 42.01px;
-     background-position: 82.59639987430982% 79.15516083289798%;
+     background-position: 27.3773366984643% 38.57418387027644%;
  }
 
 .icon--fire{
      width: 56px;
      height: 64px;
-     background-position: 34.04255319148936% 0;
+     background-position: 46.231155778894475% 0;
  }
 
 .icon--globe{
      width: 64px;
      height: 64px;
-     background-position: 66.66666666666667% 0;
+     background-position: 77.4869109947644% 0;
  }
 
 .icon--instagram{
      width: 42.01px;
      height: 42.01px;
-     background-position: 31.68473686816179% 47.76475856407194%;
+     background-position: 99.53518944551386% 0;
  }
 
 .icon--key{
      width: 24.01px;
      height: 24.1px;
-     background-position: 83.64016546206645% 97.47860434496378%;
- }
-
-.icon--logo-msu{
-     width: 30px;
-     height: 30px;
-     background-position: 63.08878504672897% 43.83561643835616%;
+     background-position: 91.7788648859258% 53.20455984800506%;
  }
 
 .icon--mail{
      width: 64px;
      height: 48px;
-     background-position: 0 50%;
+     background-position: 77.4869109947644% 47.76119402985075%;
  }
 
 .icon--rain{
@@ -1117,31 +1111,31 @@ Instead edit gulp/templates/sprite*/
 .icon--star{
      width: 64px;
      height: 64px;
-     background-position: 35.55555555555556% 100%;
+     background-position: 33.50785340314136% 100%;
  }
 
 .icon--twitter{
      width: 51.78px;
      height: 42.06px;
-     background-position: 95.72364998439288% 47.78258921905331%;
+     background-position: 45.27113473083358% 45.73388595112191%;
  }
 
 .icon--user{
      width: 24px;
      height: 24px;
-     background-position: 94.55% 97.41447368421052%;
+     background-position: 91.77489177489177% 68.42405063291137%;
  }
 
 .icon--wifi{
      width: 60px;
      height: 64px;
-     background-position: 100% 0;
+     background-position: 65.64102564102564% 100%;
  }
 
 .icon--youtube{
      width: 34.75px;
      height: 42px;
-     background-position: 98.07885304659499% 79.14925373134328%;
+     background-position: 96.25425652667424% 30.007142857142856%;
  }
 
 .site-footer{
@@ -1192,7 +1186,7 @@ Instead edit gulp/templates/sprite*/
 } 
         
         .site-header--dark{
-            background-color: rgba(23,51,72,.85);
+            background-color: rgba(47,85,114,.85);
         }
     }
 
@@ -1216,7 +1210,7 @@ Instead edit gulp/templates/sprite*/
         -webkit-transform-origin: 50% 0;
                 transform-origin: 50% 0;
         background-color: #2f5572;
-        padding: 25px 50px;
+        padding: 27px 50px;
     }
 
 @media(min-width:800px){
@@ -1640,5 +1634,45 @@ Instead edit gulp/templates/sprite*/
 
 .form-box #hide1{
         display: none;
+    }
+
+.table-container{
+    padding-top: 10px;
+    width: 100%;
+
+
+}
+
+.table-container__table{
+        text-align:center; 
+        width: 100%; 
+        border-style: ridge;
+        margin: 0px;
+    }
+
+.table-container__thead{
+        background-color: paleturquoise;
+    }
+
+.table-container--hide-on-small{
+        display: none;
+    }
+
+@media(min-width:530px){
+
+.table-container--hide-on-small{
+            display: table-cell
+    }
+    }
+
+.table-container--hide-on-medium{
+        display: none;
+    }
+
+@media(min-width:800px){
+
+.table-container--hide-on-medium{
+            display: table-cell
+    }
     }
 

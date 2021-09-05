@@ -4,16 +4,20 @@
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1" />
     
-    <link rel="stylesheet" href="assets/styles/styles-ba28356f4b.css"/>
+    <!-- build:css assets/styles/styles.css-->
+    <link rel='stylesheet' href="./temp/styles/styles.css">
+    <!-- endbuild -->
 
-    <script src="assets/scripts/Vendor-62387867cd.js"></script>
+    <!-- build:js assets/scripts/Vendor.js-->
+    <script src="/temp/scripts/Vendor.js"></script>
+    <!-- endbuild-->
 </head>
 
 <body>
     <header class="site-header">
         <div class="wrapper">
             <div class="site-header__logo">
-                <div class="site-header__logo__graphic icon icon--logo-HD">МСУ</div>
+                <div class="site-header__logo__graphic icon icon--HD">МСУ</div>
             </div>
             <div class="site-header__menu-icon">
                 <div class="site-header__menu-icon__middle"></div>
@@ -59,36 +63,36 @@
         </div>
     </div>
 
-
-    <div class="wrapper" id="content_fill" style="padding-top: 10px; width: 100%;">
+    <div class="wrapper">
+    <div class="table-container" id="content_fill">
         <div class="generic-content-container" id="prijavi" data-matching-link="#prijavi">
             <h1>Пријавени Предмети</h1>
-            <table class="table" style="text-align:center; width: 90%; border-style: ridge;">
-                <thead style="background-color: paleturquoise;">
+            <table class="table-container__table">
+                <thead class="table-container__thead">
                     <tr>
                     <th>Број на <br>пријава</th> 
                     <th>Име на Предмет</th> 
-                    <th>Код на Предмет</th> 
+                    <th class="table-container--hide-on-medium">Код на Предмет</th> 
                     <th>Семестар</th> 
-                    <th>Кредити</th> 
-                    <th>Учебна<br>Година</th> 
-                    <th>Професор</th>
+                    <th class="table-container--hide-on-small">Кредити</th> 
+                    <th class="table-container--hide-on-medium">Учебна<br>Година</th> 
+                    <th class="table-container--hide-on-small">Професор</th>
                     </tr>
                 </thead>
                     <% appInfo.forEach(prijava =>{ %>
                         <tr> 
                           <td><%= prijava.ID %></td>
                           <td><%= prijava.ImeNaPredmet %>
-                          <td><%= prijava.KodNaPredmet %></td>
+                          <td class="table-container--hide-on-small"><%= prijava.KodNaPredmet %></td>
                           <td><%= prijava.Semestar %></td>
-                          <td ><%= prijava.Krediti %></td>
-                          <td><%= prijava.UcebnaGodina %></td>
-                          <td><%= prijava.Profesor %></td>
+                          <td class="table-container--hide-on-medium"><%= prijava.Krediti %></td>
+                          <td class="table-container--hide-on-medium"><%= prijava.UcebnaGodina %></td>
+                          <td class="table-container--hide-on-small"><%= prijava.Profesor %></td>
                         </tr> 
                     <% }) %>              
             </table>
 
-            <h1>Предмети за Пријавуање</h1>
+            <h1>Предмети за Пријавување</h1>
         </div>
 
         <div class="generic-content-container" align="right" style="transform: translateX(-5%); padding: 20px;">
@@ -102,7 +106,7 @@
         
         </div>
     </div>
-   
+    </div>
 
     <footer class="site-footer" style="position: relative; bottom:0; width:100%; padding-top: 10px;">
         <div class="wrapper" id="mapa" data-matching-link="#mapa-link">
@@ -131,7 +135,9 @@
         <div class="modal__close">X</div>
     </div>
 
-    <script src="assets/scripts/App-62cf314a3c.js"></script>
+        <!-- build:js assets/scripts/App.js-->
+        <script src="/temp/scripts/App.js"></script>
+        <!--  endbuild -->
 </body>
 
 </html>

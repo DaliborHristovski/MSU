@@ -21,12 +21,9 @@ let subInfo;
 let appInfo;
 let studentInfo;
 
-app.set("view engine", "ejs");
-app.set("views", path.join('../docs/views'));
-
 app.use(express.json());
 app.use( cors({
-    origin: ["http://localhost:3000"],
+    origin: ["http://localhost:8000"],
     methods: ["GET", "POST"],
     credentials: true,
   })
@@ -141,7 +138,23 @@ prijava_za_ispit
 };
 
 
-app.use(express.static(path.resolve('../docs')));
+
+app.set("view engine", "ejs");
+
+//build block
+//app.set("views", path.join('../docs'));
+//app.use(express.static(path.resolve('../docs')));
+//end of build block
+
+//EJS developer settings 
+
+//testing for browsersync with prebuilt version
+app.use(express.static(path.resolve('../app')));
+app.set("views", path.join('../app/'));
+//end of test block
+//---------------------------------------------------------------------------------------------------
+
+
 //router.get('/',function(req,res){res.sendFile(path.resolve('../app/index.html'));});
 app.get("/", (req, res) =>{
   //res.sendFile(path.join(__dirname,'../docs/index.html'));
@@ -265,7 +278,7 @@ app.post("/login", (req, res) => {
 
 
 
-app.listen(3000, () => {
+app.listen(8000, () => {
   console.log("running server");
  
 });

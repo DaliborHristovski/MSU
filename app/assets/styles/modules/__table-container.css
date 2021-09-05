@@ -1,0 +1,31 @@
+.table-container{
+    padding-top: 10px;
+    width: 100%; 
+
+    &__table{
+        text-align:center; 
+        width: 100%; 
+        border-style: ridge;
+        margin: 0px;
+    }
+
+    &__thead{
+        background-color: paleturquoise;
+    }
+
+    
+    &--hide-on-small{
+        display: none;
+        @mixin atSmall{
+            display: table-cell;
+        }
+    }
+    &--hide-on-medium{
+        display: none;
+        @mixin atMedium{
+            display: table-cell;
+        }
+    }
+
+
+}
