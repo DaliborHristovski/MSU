@@ -3,7 +3,7 @@ const mysql = require("mysql");
 const cors = require("cors");
 const ejs = require("ejs");
 
-
+//CookieParser is no longer needed
 //const cookieParser = require("cookie-parser");
 const session = require("express-session");
 
@@ -30,6 +30,8 @@ app.use( cors({
     credentials: true,
   })
 );
+
+//CookieParser is no longer needed
 //app.use(cookieParser());
 
 
@@ -161,6 +163,8 @@ app.set("views", path.join('../app/'));
 
 //old static way to send a static web page 
 //router.get('/',function(req,res){res.sendFile(path.resolve('../app/index.html'));});
+
+
 app.get("/", (req, res) =>{
   //res.sendFile(path.join(__dirname,'../docs/index.html'));
   }
