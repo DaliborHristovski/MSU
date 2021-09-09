@@ -15,6 +15,8 @@ const app = express();
 
 const path = require('path');
 const { response } = require("express");
+
+// may use router if i decide that i need many pages as of now it is not worth using
 const router = express.Router();
 
 let subInfo;
@@ -141,20 +143,23 @@ prijava_za_ispit
 
 app.set("view engine", "ejs");
 
-//build block
-//app.set("views", path.join('../docs'));
-//app.use(express.static(path.resolve('../docs')));
+/* build block
+app.set("views", path.join('../docs'));
+app.use(express.static(path.resolve('../docs')));
+*/
 //end of build block
 
 //EJS developer settings 
 
 //testing for browsersync with prebuilt version
+///*
 app.use(express.static(path.resolve('../app')));
 app.set("views", path.join('../app/'));
+//*/
 //end of test block
 //---------------------------------------------------------------------------------------------------
 
-
+//old static way to send a static web page 
 //router.get('/',function(req,res){res.sendFile(path.resolve('../app/index.html'));});
 app.get("/", (req, res) =>{
   //res.sendFile(path.join(__dirname,'../docs/index.html'));
