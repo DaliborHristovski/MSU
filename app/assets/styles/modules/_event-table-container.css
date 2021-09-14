@@ -1,0 +1,184 @@
+.event-table-container{
+    
+    font-family: sans-serif;
+
+    &__flexbox{
+        display:block;
+
+        @mixin atMedium{
+            display: block;
+        }
+
+
+
+        &--row{
+            display: contents;
+
+            @mixin atMedium{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            width: 100%;
+
+            }
+        }
+
+          
+        &--column {
+            display: table-row;
+            width: 100%;
+            padding: 4px;
+            
+                        
+            @mixin atMedium{
+            display: flex;
+            flex-direction: column;
+            flex-basis: 100%;
+            flex: 1;
+            padding: 2px;
+            }
+
+            p {
+                
+                margin: 15px;
+                @mixin atMedium{
+                margin: 15px;
+                }
+            }
+
+            &--blue{
+                display:table-cell;
+                border-style: outset;
+                background-color: rgba($mainBlue, .2);
+                @mixin atMedium{
+                display:block;
+                height: 80px;
+                border-style: outset;
+                background-color: rgba($mainBlue, .2);
+                }      
+            }
+    
+            input{
+                transform: scale(150%);
+                @mixin atMedium{
+                transform: scale(150%);
+                }
+            }
+
+            h3{
+                
+                text-align:left;
+                text-justify: auto;
+                text-
+
+                padding : 0.3em 0.6em 0.2em; 
+                margin: 0px 0px 0px 0px;
+                font-family: sans-serif;
+                font-size: 1.5rem;
+                
+                @mixin atMedium{
+                text-align:left; 
+                padding : 20px 20px;
+                margin-left: 20px;
+                margin: 0px;
+                font-family: sans-serif;
+                font-size: 1.5rem;
+                }
+            }
+          }
+
+        
+    
+    }
+   
+
+    &__table{
+        text-align: left;;
+        border-style: ridge;
+        display:table;
+        
+            a {
+             color: black;
+            border-width: 4px;
+            display: table-row;
+            border-style: double;
+            }
+
+            h4{
+                text-align: left;
+                margin: 10px 2px 10px;
+                font-size: 1.5rem;
+                background-color:rgba($mainBlue, 0.2);
+                border-style: none;
+            }
+            span{
+                display:table-cell;
+                border-style: outset;
+                margin-bottom: 50px;
+                background-color: rgba($mainBlue, .2);
+                padding: 10px;
+                position: relative;
+            }
+            h3{
+                text-align:left; 
+                position: relative;
+                padding : 0;
+                margin-left: 10px;
+                margin: 0px;
+                font-family: sans-serif;
+                font-size: 1.5rem;
+
+            }
+
+            input{
+                transform: scale(150%);
+                padding-left: 2.8rem;
+                margin-right: 10px;
+                position:relative; 
+            }
+
+            
+
+
+
+            &__row{
+
+                    display: table-row;
+                    border-style: double;
+                    width:100%;
+
+            &--active{
+                display: table-row;
+                    border-style: double;
+                    width:100%;
+                
+                h4{
+                    background-color:rgba($mainOrange, 0.2);
+                }
+                span{
+                    background-color: rgba($mainOrange, .2);
+                }
+            }
+        }
+        
+
+
+
+
+    }
+    
+    &--hide-on-small{
+        display: none;
+        @mixin atSmall{
+            display: table-cell;
+        }
+    }
+    &--hide-on-medium{
+        display: none;
+        @mixin atMedium{
+            display: table-cell;
+        }
+    }
+
+
+}

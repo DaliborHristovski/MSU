@@ -15,21 +15,22 @@ const app = express();
 
 const path = require('path');
 const { response } = require("express");
+const { resolve } = require("path");
+const { loadavg } = require("os");
 
 // may use router if i decide that i need many pages as of now it is not worth using
 const router = express.Router();
 
-let subInfo;
-let appInfo;
-let studentInfo;
+
 
 app.use(express.json());
-app.use( cors({
-    origin: ["http://localhost:8000"],
-    methods: ["GET", "POST"],
-    credentials: true,
-  })
-);
+
+//#################################################
+
+/*needed to comment out the corrse check for development sake Build version should work fine with it eneabled
+app.use( cors({origin: ["http://localhost:8000"],methods: ["GET", "POST"],credentials: true}));
+*/
+//#########################################################################################################
 
 //CookieParser is no longer needed
 //app.use(cookieParser());
@@ -37,7 +38,7 @@ app.use( cors({
 
 app.use(express.urlencoded({ extended: false }));
 
-
+//login session declaration
 app.use(
   session({
     key: "userId",
@@ -50,6 +51,7 @@ app.use(
   })
 );
 
+//conection to a MySQL 
 const db = mysql.createConnection({
   user: "root",
   host: "localhost",
@@ -57,13 +59,12 @@ const db = mysql.createConnection({
   database: "university"
 });
 
-async function getStudentInfo(x) {
+function getStudentInfo(x) {
+  return new Promise (function(resolve, reject) {
   db.query(
-    `    SELECT 
+    `SELECT 
     student.BrojNaIndex AS BrojNaIndex,
-    CONCAT(student.Ime,
-      ' ',
-      student.Prezime) AS 'ImeIPrezime'
+    CONCAT(student.Ime,SPACE(1),student.Prezime) AS ImeIPrezime
 FROM
     student
 WHERE
@@ -73,22 +74,23 @@ WHERE
       if (err) {
         console.log(err);
       }
-      studentInfo = result;
-      console.log(result);
+      resolve(result);    
     }
-  );         
+  );
+});         
 };
 
-async function getAplicationInfo(x) {
+function getAplicationInfo(x) {
+  return new Promise (function(resolve, reject) {
   db.query(
-    `    SELECT 
+    `SELECT 
     prijava_za_ispit.ID AS ID,
     predmet.ImeNaPredmet AS ImeNaPredmet,
     predmet.KodNaPredmet AS KodNaPredmet,
     predmet.Semestar AS Semestar,
     predmet.Krediti AS Krediti,
     aktiviran_predmet.UcebnaGodina AS UcebnaGodina,
-    CONCAT(profesor.Ime, ' ', profesor.Prezime) AS Profesor
+    CONCAT(profesor.Ime, SPACE(1), profesor.Prezime) AS Profesor
 FROM
     (prijava_za_ispit
     JOIN snap ON (prijava_za_ispit.IdStudentiNaPredmet = snap.IdStudentiNaPredmet)
@@ -103,12 +105,13 @@ WHERE
       if (err) {
         console.log(err);
       }
-      appInfo = result;
+      resolve(result);
     }
-  );         
+  );  
+});        
 };
-
-async function getSubjectInfo(x) {
+function getSubjectInfo(x) {
+  return new Promise(function(resolve, reject) {
   db.query(
     `SELECT 
     predmet.ImeNaPredmet,
@@ -135,23 +138,48 @@ prijava_za_ispit
       if (err) {
         console.log(err);
       }
-      subInfo = result;
+      resolve( result);
     }
   );     
-      
+  }); 
 };
-
-
+function getEventInfo(){
+  return new Promise(function(resolve, reject) {
+  db.query(
+    `SELECT
+    event.idEvent,
+    event.EventStart,
+    event.EventEnd,
+    event.Type
+FROM university.event 
+ORDER BY event.EventStart DESC;`,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      resolve( result);
+    }
+  );  
+}); 
+};
 
 app.set("view engine", "ejs");
 
-/* build block
+//#################################################
+// Final Build block
+//#################################################
+
+//used after building the project for deployment
+/*
 app.set("views", path.join('../docs'));
 app.use(express.static(path.resolve('../docs')));
 */
 //end of build block
+//#################################################
 
+//#################################################
 //EJS developer settings 
+//#################################################
 
 //testing for browsersync with prebuilt version
 ///*
@@ -159,36 +187,38 @@ app.use(express.static(path.resolve('../app')));
 app.set("views", path.join('../app/'));
 //*/
 //end of test block
-//---------------------------------------------------------------------------------------------------
+//#################################################
 
 //old static way to send a static web page 
 //router.get('/',function(req,res){res.sendFile(path.resolve('../app/index.html'));});
 
 
 app.get("/", (req, res) =>{
-  //res.sendFile(path.join(__dirname,'../docs/index.html'));
+  res.sendFile(path.join(__dirname,'../docs/index.html'));
   }
 );
 
 //no longer used and it is integrated within the login call
-// app.post("/register", (req, res) => {
-//   const username = req.body.username;
-//   const password = req.body.password;
+/* 
+app.post("/register", (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
 
-//   bcrypt.hash(password, saltRounds, (err, hash) => {
-//     if (err) {
-//       console.log(err);
-//     }
+  bcrypt.hash(password, saltRounds, (err, hash) => {
+    if (err) {
+      console.log(err);
+    }
 
-//     db.query(
-//       "INSERT INTO login (username, password) VALUES (?,?)",
-//       [username, hash],
-//       (err, result) => {
-//         console.log(err);
-//       }
-//     );
-//   });
-// });
+    db.query(
+      "INSERT INTO login (username, password) VALUES (?,?)",
+      [username, hash],
+      (err, result) => {
+        console.log(err);
+      }
+    );
+  });
+});
+*/
 
 app.get("/login", (req, res) => {
   if (req.session.user) {
@@ -197,6 +227,7 @@ app.get("/login", (req, res) => {
     res.send({ loggedIn: false });
   }
 });
+
 
 //Need to add a button that calls this in the pages
 app.get("/logout", function(req,res) {
@@ -224,36 +255,34 @@ function Regis(userName, inputPassword) {
   });
 };
 
+//new login path that sends us to the event page with all the event application elements listed
 app.post("/login", (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
-  
-  getSubjectInfo(username);
-  getAplicationInfo(username);
-  getStudentInfo(username);
 
-  db.query(
-    "SELECT * FROM login WHERE username = ?;",
-    username,
-    (err, result) => {
+
+  //need to check what to remove from these
+  (async function(){
+    const [subInfo,appInfo,studentInfo,eventInfo] = await Promise.all([getSubjectInfo(username),getAplicationInfo(username),getStudentInfo(username), getEventInfo()]);
+
+  db.query("SELECT * FROM login WHERE username = ?;",  username, (err, result) => {
       if (err) {
         res.send({ err: err });
       }
-      
       if (result.length > 0) {
         //comparing encripted values
         bcrypt.compare(password, result[0].password, (error, response) => {
           if (response) {
             req.session.user = result;
             studentIndex = req.session.user[0].username; 
-            
             //res.send(result);
             //res.sendFile(path.resolve('../docs/index.html'))
             //res.render(path.resolve('../docs/views/home.ejs'))
-            res.render("home",{
+            res.render("home", {
               prInfo: subInfo,
               appInfo: appInfo,
-              sInfo: studentInfo
+              sInfo: studentInfo,
+              eInfo:eventInfo
             });
           } else {
             res.send({ message: "Wrong username/password combination!" });
@@ -273,7 +302,8 @@ app.post("/login", (req, res) => {
               res.render("home",{
                 prInfo: subInfo,
                 appInfo: appInfo,
-                sInfo: studentInfo
+                sInfo: studentInfo,
+                eInfo:eventInfo
               });
             }else{
               res.send({ message: "User doesn't exist" });
@@ -283,6 +313,42 @@ app.post("/login", (req, res) => {
         )
       }}
   )
+})();
+});
+
+//when we pick one of the events 
+app.post("/event/:id", (req, res) => {
+
+  //console.log(req.params.id + " we are loged in if this prints 1 = "+ req.session.user[0].username);
+  
+  // if the session is active, that is if we are logged in we can load the page for logging in 
+  if (req.session.user) {
+   res.redirect('/event/'+req.params.id);   
+  } else {
+    res.send({ loggedIn: false });
+  }
+});
+app.get("/event/:id", (req, res) => {
+
+console.log(req.params.id + " we are loged in if this prints 1 = "+ req.session.user[0].username);
+
+// if the session is active, that is if we are logged in we can load the page for logging in 
+if (req.session.user) {
+ const username = req.session.user[0].username;
+ (async function(){
+  const [subInfo,appInfo,studentInfo,eventInfo] = await Promise.all([getSubjectInfo(username),getAplicationInfo(username),getStudentInfo(username), getEventInfo()]);
+
+    res.render("exam-apply",{
+      prInfo: subInfo,
+      appInfo: appInfo,
+      sInfo: studentInfo,
+      eInfo: eventInfo
+    });
+
+})();   
+} else {
+  res.send({ loggedIn: false });
+}
 });
 
 
