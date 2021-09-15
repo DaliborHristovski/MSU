@@ -38,7 +38,7 @@ let btns = document.getElementsByName("myEventBlock");
 for (var i = 0; i < btns.length; i++) {
         btns[i].addEventListener("click", function (evt) {
             var url = "http://localhost:3000/event/"+evt.currentTarget.getAttribute('data-value');
-            //alert( url);
+            // alert( url);
             var xhr = new XMLHttpRequest();
             xhr.open("post", url);
             //alert("the xlr.open got called");
@@ -70,7 +70,8 @@ for (var i = 0; i < btns.length; i++) {
             //alert( "before the send data");
             xhr.send(data);
             //alert("after the send data");
-        });
+        }
+        );
 
 }
 

@@ -25,15 +25,19 @@ const router = express.Router();
 
 app.use(express.json());
 
-//#################################################
-
-/*needed to comment out the corrse check for development sake Build version should work fine with it eneabled
-app.use( cors({origin: ["http://localhost:8000"],methods: ["GET", "POST"],credentials: true}));
-*/
-//#########################################################################################################
 
 //CookieParser is no longer needed
 //app.use(cookieParser());
+
+
+//#################################################
+
+// /*needed to comment out the corrse check for development sake Build version should work fine with it eneabled
+// app.use( cors({origin: ["http://localhost:8000"],methods: ["GET", "POST"],credentials: true}));
+// */
+//#########################################################################################################
+
+
 
 
 app.use(express.urlencoded({ extended: false }));
@@ -79,7 +83,6 @@ WHERE
   );
 });         
 };
-
 function getAplicationInfo(x) {
   return new Promise (function(resolve, reject) {
   db.query(
@@ -172,7 +175,7 @@ app.set("view engine", "ejs");
 //used after building the project for deployment
 /*
 app.set("views", path.join('../docs'));
-app.use(express.static(path.resolve('../docs')));
+app.use("/static", express.static(path.resolve('../docs')));
 */
 //end of build block
 //#################################################
@@ -182,51 +185,28 @@ app.use(express.static(path.resolve('../docs')));
 //#################################################
 
 //testing for browsersync with prebuilt version
-///*
-app.use(express.static(path.resolve('../app')));
+// /*
+app.use("/", express.static(path.resolve('../app')));
 app.set("views", path.join('../app/'));
-//*/
+// */
 //end of test block
 //#################################################
 
-//old static way to send a static web page 
-//router.get('/',function(req,res){res.sendFile(path.resolve('../app/index.html'));});
-
-
 app.get("/", (req, res) =>{
-  res.sendFile(path.join(__dirname,'../docs/index.html'));
+   res.redirect("/");
+  //res.sendFile(path.join(__dirname,'../app/index.html'));
+  //res.render("index");
   }
 );
 
-//no longer used and it is integrated within the login call
-/* 
-app.post("/register", (req, res) => {
-  const username = req.body.username;
-  const password = req.body.password;
 
-  bcrypt.hash(password, saltRounds, (err, hash) => {
-    if (err) {
-      console.log(err);
-    }
-
-    db.query(
-      "INSERT INTO login (username, password) VALUES (?,?)",
-      [username, hash],
-      (err, result) => {
-        console.log(err);
-      }
-    );
-  });
-});
-*/
-
-app.get("/login", (req, res) => {
-  if (req.session.user) {
-    res.send({ loggedIn: true, user: req.session.user });
-  } else {
-    res.send({ loggedIn: false });
-  }
-});
+// app.get("/login", (req, res) => {
+//   if (req.session.user) {
+//     res.send({ loggedIn: true, user: req.session.user });
+//   } else {
+//     res.send({ loggedIn: false });
+//   }
+// });
 
 
 //Need to add a button that calls this in the pages
@@ -255,16 +235,31 @@ function Regis(userName, inputPassword) {
   });
 };
 
+
+app.get("/home", (req, res) => {
+// console.log("are we loged in ? : " + req.session.user)
+  if (req.session.user) {
+    (async function(){
+      const username = req.session.user[0].username;
+      const [subInfo,appInfo,studentInfo,eventInfo] = await Promise.all([getSubjectInfo(username),getAplicationInfo(username),getStudentInfo(username), getEventInfo()]);
+
+    res.render("home",{
+      prInfo: subInfo,
+      appInfo: appInfo,
+      sInfo: studentInfo,
+      eInfo: eventInfo
+    });
+  })();   
+  } else {
+    res.redirect("/");
+  }
+});
+
 //new login path that sends us to the event page with all the event application elements listed
-app.post("/login", (req, res) => {
+app.post("/login", (req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
-
-
-  //need to check what to remove from these
-  (async function(){
-    const [subInfo,appInfo,studentInfo,eventInfo] = await Promise.all([getSubjectInfo(username),getAplicationInfo(username),getStudentInfo(username), getEventInfo()]);
-
+  
   db.query("SELECT * FROM login WHERE username = ?;",  username, (err, result) => {
       if (err) {
         res.send({ err: err });
@@ -274,18 +269,10 @@ app.post("/login", (req, res) => {
         bcrypt.compare(password, result[0].password, (error, response) => {
           if (response) {
             req.session.user = result;
-            studentIndex = req.session.user[0].username; 
-            //res.send(result);
-            //res.sendFile(path.resolve('../docs/index.html'))
-            //res.render(path.resolve('../docs/views/home.ejs'))
-            res.render("home", {
-              prInfo: subInfo,
-              appInfo: appInfo,
-              sInfo: studentInfo,
-              eInfo:eventInfo
-            });
+            res.redirect("/home")
           } else {
-            res.send({ message: "Wrong username/password combination!" });
+            console.log("Wrong username/password combination!");
+            res.redirect("/home")
           }
         });
       }      
@@ -299,21 +286,16 @@ app.post("/login", (req, res) => {
             }
             if (result.length > 0 && result.EMBG == password) {
               Regis(username,password);
-              res.render("home",{
-                prInfo: subInfo,
-                appInfo: appInfo,
-                sInfo: studentInfo,
-                eInfo:eventInfo
-              });
+              req.session.user = result;
+              res.redirect("/home");
             }else{
-              res.send({ message: "User doesn't exist" });
+              console.log("User doesn't exist");
+              res.redirect("/home");
             };
-        
            }
         )
-      }}
-  )
-})();
+      }
+    })
 });
 
 //when we pick one of the events 
@@ -328,9 +310,10 @@ app.post("/event/:id", (req, res) => {
     res.send({ loggedIn: false });
   }
 });
+
 app.get("/event/:id", (req, res) => {
 
-console.log(req.params.id + " we are loged in if this prints 1 = "+ req.session.user[0].username);
+//console.log(req.params.id + " we are loged in if this prints 1 = "+ req.session.user[0].username);
 
 // if the session is active, that is if we are logged in we can load the page for logging in 
 if (req.session.user) {
