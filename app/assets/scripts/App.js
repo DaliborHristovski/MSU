@@ -43,7 +43,7 @@ for (var i = 0; i < btns.length; i++) {
             xhr.open("post", url);
             //alert("the xlr.open got called");
 
-            //xhr.setRequestHeader("Accept", "*/*");
+            xhr.setRequestHeader("Accept", "*/*");
             //xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
             //var win = window.open(url, '_self');

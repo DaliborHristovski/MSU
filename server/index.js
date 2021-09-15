@@ -48,6 +48,7 @@ app.use(
     key: "userId",
     secret: "Water is not wet!",
     resave: false,
+    unset: 'destroy',
     saveUninitialized: false,
     cookie: {
       expires: 60 * 60 * 24 * 1000,
@@ -210,9 +211,23 @@ app.get("/", (req, res) =>{
 
 
 //Need to add a button that calls this in the pages
-app.get("/logout", function(req,res) {
-  req.session.destroy();
-  res.status(200).send('ok');  
+app.get("/logout", function(req,res){ 
+  if (req.session) {
+    // delete session object
+    req.session.destroy(function(err) {
+        if(err) {
+            return next(err);
+        } else {
+            req.session = null;
+            console.log("logout successful");
+            return res.redirect('/');
+        }
+    });
+}  
+
+
+  //req.session.destroy(req.sessionID);
+  //res.status(200).redirect("/");  
 });
 
 //this is what will get called to input into the db.login for user that joins for the first time
@@ -236,9 +251,10 @@ function Regis(userName, inputPassword) {
 };
 
 
-app.get("/home", (req, res) => {
+app.get("/home/:id", (req, res) => {
 // console.log("are we loged in ? : " + req.session.user)
-  if (req.session.user) {
+console.log(req.params.id + " is it equal to " + req.session.user[0].username);
+  if ((req.session.user)&&(req.params.id == req.session.user[0].username)) {
     (async function(){
       const username = req.session.user[0].username;
       const [subInfo,appInfo,studentInfo,eventInfo] = await Promise.all([getSubjectInfo(username),getAplicationInfo(username),getStudentInfo(username), getEventInfo()]);
@@ -251,7 +267,7 @@ app.get("/home", (req, res) => {
     });
   })();   
   } else {
-    res.redirect("/");
+     res.redirect("/");
   }
 });
 
@@ -269,10 +285,10 @@ app.post("/login", (req, res, next) => {
         bcrypt.compare(password, result[0].password, (error, response) => {
           if (response) {
             req.session.user = result;
-            res.redirect("/home")
+             res.redirect("/home/"+username);
           } else {
             console.log("Wrong username/password combination!");
-            res.redirect("/home")
+            res.redirect("/home/"+username);
           }
         });
       }      
@@ -287,10 +303,10 @@ app.post("/login", (req, res, next) => {
             if (result.length > 0 && result.EMBG == password) {
               Regis(username,password);
               req.session.user = result;
-              res.redirect("/home");
+               res.redirect("/home/"+username);
             }else{
               console.log("User doesn't exist");
-              res.redirect("/home");
+               res.redirect("/home/"+username);
             };
            }
         )

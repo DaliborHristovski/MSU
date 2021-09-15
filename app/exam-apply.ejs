@@ -5,11 +5,11 @@
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1" />
     
     <!-- build:css assets/styles/styles.css-->
-    <link rel='stylesheet' href="./temp/styles/styles.css">
+    <link rel='stylesheet' href="../temp/styles/styles.css">
     <!-- endbuild -->
 
     <!-- build:js assets/scripts/Vendor.js-->
-    <script src="./temp/scripts/Vendor.js"></script>
+    <script src="../temp/scripts/Vendor.js"></script>
     <!-- endbuild-->
 </head>
 
@@ -26,6 +26,7 @@
             <div class="site-header__menu-content">
                 <div class="site-header__btn_container">
                     <a href="#" class="btn open-modal">Инструкции</a>
+                    <form style="display: inline; padding-left: 4px;" action="/logout" method="GET"> <button type="submit"  class="btn btn--orange">Одјави се</button></form>
                 </div>
                 <nav class="primary-nav primary-nav--pull-right">
                     <ul>
@@ -49,7 +50,7 @@
         </picture>
     -->
         <picture>
-            <img srcset="assets/images/eucenje_msu_header_page.jpg" alt="Е-учење" class="large-hero__image">
+            <img srcset="../assets/images/eucenje_msu_header_page.jpg" alt="Е-учење" class="large-hero__image">
         </picture>
         <div class="large-hero__text-content">
             <div class="wrapper wrapper--colored">
@@ -157,9 +158,9 @@
         <div class="modal__close">X</div>
     </div>
     
-        <!-- build:js assets/scripts/App.js-->
-        <script src="./temp/scripts/App.js"></script>
-        <!--  endbuild -->
+    <!-- build:js assets/scripts/App.js-->
+    <script src="../temp/scripts/App.js"></script>
+    <!--  endbuild -->
 </body>
 
 </html>
