@@ -99,7 +99,7 @@
         
         <div class="event-table-container" >
          <h1>Предмети за Пријавување</h1>
-         <form  action="/submit-info" method="post">
+         <form  action="/subsin/<%= idEvent%>" method="POST">
           <div class="event-table-container__flexbox">
             <% 
             let x =0;
@@ -111,7 +111,7 @@
                 <div class="event-table-container__flexbox--column">
                     <div class="event-table-container__flexbox--column--blue">
                         <h3>
-                            <input class="subject-checkbox" type="checkbox" name="predmet" id="<%=predmet.AP_ID%>">
+                            <input class="subject-checkbox" type="checkbox" name="predmet" value="<%=predmet.idSnap%>">
                             <p style="display: inline;"><%= predmet.ImeNaPredmet %><p>
                         </h3>
                     </div>
@@ -121,9 +121,14 @@
                 <%}x+=1;%>
             <% }) %>   
           </div>
-          <h1>need to format the submit</h1>
-        <button action="submit" class="btn btn--orange btn--large">Пријави</button>
-        
+          <div class="event-table-container__flexbox">
+          <div class="event-table-container__flexbox--row">
+            <div class="event-table-container__flexbox--column">
+                <div class="event-table-container__flexbox--column"></div>
+        <button action="submit" type = "submit" class="btn btn--orange "><h1>Пријави<h1></button>
+        </div>
+        </div>
+        </div>
         </form>
         </div>
        

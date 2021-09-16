@@ -17,6 +17,7 @@ const path = require('path');
 const { response } = require("express");
 const { resolve } = require("path");
 const { loadavg } = require("os");
+const e = require("express");
 
 // may use router if i decide that i need many pages as of now it is not worth using
 const router = express.Router();
@@ -84,7 +85,7 @@ WHERE
   );
 });         
 };
-function getAplicationInfo(x) {
+function getAplicationInfo(x,idEve) {
   return new Promise (function(resolve, reject) {
   db.query(
     `SELECT 
@@ -103,8 +104,8 @@ FROM
     JOIN predmet ON (aktiviran_predmet.KodNaPredmet = predmet.KodNaPredmet)
     JOIN profesor ON (aktiviran_predmet.IDNaVaraboten = profesor.IDNaVraboten))
 WHERE
-    student.BrojNaIndex = ?;`,
-      x,
+    student.BrojNaIndex = ? AND prijava_za_ispit.idEvent = ?;`,
+      [x,idEve],
     (err, result) => {
       if (err) {
         console.log(err);
@@ -114,12 +115,70 @@ WHERE
   );  
 });        
 };
-function getSubjectInfo(x) {
+//we get the subjects of the student with index of x 
+ 
+
+function getTotalSubjectInfo(x) {
+  let y = `SELECT 
+  predmet.ImeNaPredmet,
+  aktiviran_predmet.AP_ID,
+  snap.IdStudentiNaPredmet AS idSnap
+FROM (university.snap
+      JOIN aktiviran_predmet ON (snap.AP_ID = aktiviran_predmet.AP_ID)
+      JOIN predmet ON (aktiviran_predmet.KodNaPredmet = predmet.KodNaPredmet)
+      JOIN student ON (snap.BrojNaIndex = student.BrojNaIndex)
+      )where aktiviran_predmet.AP_ID NOT IN(    
+  SELECT 
+  aktiviran_predmet.AP_ID
+  FROM
+      (
+prijava_za_ispit
+      JOIN snap ON (prijava_za_ispit.IdStudentiNaPredmet = snap.IdStudentiNaPredmet)
+      JOIN aktiviran_predmet ON (snap.AP_ID = aktiviran_predmet.AP_ID)
+      JOIN student ON (snap.BrojNaIndex = student.BrojNaIndex)
+      JOIN predmet ON (aktiviran_predmet.KodNaPredmet = predmet.KodNaPredmet)
+      JOIN profesor ON (aktiviran_predmet.IDNaVaraboten = profesor.IDNaVraboten)
+      ) WHERE prijava_za_ispit.Status = 'Положена'
+      )AND student.BrojNaIndex = ?`;
+return new Promise(function(resolve, reject) {
+db.query(
+  y,
+  x,
+  (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    resolve( result);
+  }
+);     
+})
+
+};
+
+function getEventType(x){
   return new Promise(function(resolve, reject) {
-  db.query(
-    `SELECT 
+    db.query(
+      `SELECT event.Type
+      FROM university.event
+      where idEvent = ?;`,
+        x,
+      (err, result) => {
+        if (err) {
+          console.log(err);
+        }
+        resolve( result[0].Type);
+      }
+    ); 
+  })    
+}
+
+
+
+function getSubjectInfo(x,idEve,eveType) {
+    let y = `SELECT 
     predmet.ImeNaPredmet,
-    aktiviran_predmet.AP_ID
+    aktiviran_predmet.AP_ID,
+    snap.IdStudentiNaPredmet AS idSnap
 FROM (university.snap
         JOIN aktiviran_predmet ON (snap.AP_ID = aktiviran_predmet.AP_ID)
         JOIN predmet ON (aktiviran_predmet.KodNaPredmet = predmet.KodNaPredmet)
@@ -135,18 +194,30 @@ prijava_za_ispit
         JOIN student ON (snap.BrojNaIndex = student.BrojNaIndex)
         JOIN predmet ON (aktiviran_predmet.KodNaPredmet = predmet.KodNaPredmet)
         JOIN profesor ON (aktiviran_predmet.IDNaVaraboten = profesor.IDNaVraboten)
-        )
-        )AND student.BrojNaIndex = ?;`,
-      x,
-    (err, result) => {
-      if (err) {
-        console.log(err);
+        ) WHERE prijava_za_ispit.Status = 'Положена' OR prijava_za_ispit.idEvent = ?
+        )AND student.BrojNaIndex = ?`;
+    if(eveType == 2) 
+    { y= y + ` AND predmet.Semestar IN ('II','IV','VI');`; }
+    else{
+      if(eveType == 3) 
+      {y= y + ` AND predmet.Semestar IN ('I','III','V');`;} 
+      else { y= y + `;`;}
+    }    
+
+  return new Promise(function(resolve, reject) {
+    db.query(
+      y,
+      [idEve,x],
+      (err, result) => {
+        if (err) {
+          console.log(err);
+        }
+        resolve( result);
       }
-      resolve( result);
-    }
-  );     
-  }); 
+    );     
+  })
 };
+
 function getEventInfo(){
   return new Promise(function(resolve, reject) {
   db.query(
@@ -192,25 +263,79 @@ app.set("views", path.join('../app/'));
 // */
 //end of test block
 //#################################################
-
-app.get("/", (req, res) =>{
-   res.redirect("/");
-  //res.sendFile(path.join(__dirname,'../app/index.html'));
-  //res.render("index");
-  }
-);
-
-
-// app.get("/login", (req, res) => {
+/* app.get("/login", (req, res) => {
 //   if (req.session.user) {
 //     res.send({ loggedIn: true, user: req.session.user });
 //   } else {
 //     res.send({ loggedIn: false });
 //   }
 // });
+*/
+function AddSubjects(subjects,idEvent){
+  
+  if(subjects && idEvent){
+
+  return new Promise(function(resolve, reject) {
+    //console.log(typeof subjects + ` has the value of :` + subjects);
+    let statement = ``;
+    
+  db.beginTransaction( function(err){
+      if(err){throw err;}
+      Array.from(subjects).forEach(s =>{ 
+      statement =  `INSERT INTO university.prijava_za_ispit(Status,IdStudentiNaPredmet,idEvent) `+ `VALUES ('Положена',`+ s +`,`+idEvent+`); `;
+      db.query( statement,function(err,result){
+          if(err){
+            db.rollback(
+              function(){
+                throw err;
+              }
+            )
+          }
+          console.log("we querried this into the transaction :" + JSON.stringify(result));
+        }
+      )
+
+    });
+    db.commit(function(err){
+      if(err){
+        db.rollback(function(){
+          throw err;
+        });
+      }
+      console.log("Succcess!!!!!");
+
+    });
+
+  });
+  resolve( console.log("what to do"));
+  }); 
+};
+
+}
+
+app.post("/subsin/:id", (req,res) =>{
+  if (req.body.predmet&&req.params.id){
+    (async function(){
+     await Promise.all([AddSubjects(req.body.predmet, req.params.id)]);
+      console.log("will we get redirected");
+       res.redirect('/event/' + req.params.id);
+    })();
+    
+
+     
+  }
+  
+  });
 
 
-//Need to add a button that calls this in the pages
+//on call it calls the express.static default page from the dierectory provided
+app.get("/", (req, res) =>{
+   res.redirect("/");
+  //res.sendFile(path.join(__dirname,'../app/index.html'));
+  }
+);
+
+//Destroys the session efectively loggin us out and redirecting us to index.html aka the starting page
 app.get("/logout", function(req,res){ 
   if (req.session) {
     // delete session object
@@ -224,10 +349,6 @@ app.get("/logout", function(req,res){
         }
     });
 }  
-
-
-  //req.session.destroy(req.sessionID);
-  //res.status(200).redirect("/");  
 });
 
 //this is what will get called to input into the db.login for user that joins for the first time
@@ -250,18 +371,15 @@ function Regis(userName, inputPassword) {
   });
 };
 
-
 app.get("/home/:id", (req, res) => {
-// console.log("are we loged in ? : " + req.session.user)
-console.log(req.params.id + " is it equal to " + req.session.user[0].username);
+//we go here from the /login post request and if we are logged in we proceed to get our data from the data base
   if ((req.session.user)&&(req.params.id == req.session.user[0].username)) {
     (async function(){
       const username = req.session.user[0].username;
-      const [subInfo,appInfo,studentInfo,eventInfo] = await Promise.all([getSubjectInfo(username),getAplicationInfo(username),getStudentInfo(username), getEventInfo()]);
+      const [subInfo,studentInfo,eventInfo] = await Promise.all([getTotalSubjectInfo(username),getStudentInfo(username), getEventInfo()]);
 
     res.render("home",{
       prInfo: subInfo,
-      appInfo: appInfo,
       sInfo: studentInfo,
       eInfo: eventInfo
     });
@@ -316,9 +434,6 @@ app.post("/login", (req, res, next) => {
 
 //when we pick one of the events 
 app.post("/event/:id", (req, res) => {
-
-  //console.log(req.params.id + " we are loged in if this prints 1 = "+ req.session.user[0].username);
-  
   // if the session is active, that is if we are logged in we can load the page for logging in 
   if (req.session.user) {
    res.redirect('/event/'+req.params.id);   
@@ -329,22 +444,25 @@ app.post("/event/:id", (req, res) => {
 
 app.get("/event/:id", (req, res) => {
 
-//console.log(req.params.id + " we are loged in if this prints 1 = "+ req.session.user[0].username);
-
+  console.log("we are back in  event :" + req.params.id);
 // if the session is active, that is if we are logged in we can load the page for logging in 
 if (req.session.user) {
  const username = req.session.user[0].username;
+ const idEvent = req.params.id;
  (async function(){
-  const [subInfo,appInfo,studentInfo,eventInfo] = await Promise.all([getSubjectInfo(username),getAplicationInfo(username),getStudentInfo(username), getEventInfo()]);
+  const [eveType] = await Promise.all([getEventType(idEvent)]);
+ (async function(){
+  const [subInfo,appInfo,studentInfo,] = await Promise.all([getSubjectInfo(username,idEvent,eveType),getAplicationInfo(username,idEvent),getStudentInfo(username)]);
 
     res.render("exam-apply",{
       prInfo: subInfo,
       appInfo: appInfo,
       sInfo: studentInfo,
-      eInfo: eventInfo
+      idEvent:idEvent
     });
 
-})();   
+})();  
+})();  
 } else {
   res.send({ loggedIn: false });
 }
