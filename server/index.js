@@ -450,6 +450,7 @@ if (req.session.user) {
  const username = req.session.user[0].username;
  const idEvent = req.params.id;
  (async function(){
+   // need to get the entire event and then send in eveType.Type for the type of event and calculate if the event is active  here to know if you should render the aplication section...
   const [eveType] = await Promise.all([getEventType(idEvent)]);
  (async function(){
   const [subInfo,appInfo,studentInfo,] = await Promise.all([getSubjectInfo(username,idEvent,eveType),getAplicationInfo(username,idEvent),getStudentInfo(username)]);
