@@ -271,6 +271,14 @@ app.set("views", path.join('../app/'));
 //   }
 // });
 */
+function convertSub(object){
+  if (Array.isArray(object)){
+    return object;
+  }else {
+    return object = [object];
+  }
+  };
+
 function AddSubjects(subjects,idEvent){
   
   if(subjects && idEvent){
@@ -281,7 +289,12 @@ function AddSubjects(subjects,idEvent){
     
   db.beginTransaction( function(err){
       if(err){throw err;}
-      Array.from(subjects).forEach(s =>{ 
+
+      //Array.from(subjects).forEach(s =>{
+        //new way of doing things
+      convertSub(subjects).forEach(s =>{ 
+        console.log("what is happening with the : " + s +" value????");
+
       statement =  `INSERT INTO university.prijava_za_ispit(Status,IdStudentiNaPredmet,idEvent) `+ `VALUES ('Положена',`+ s +`,`+idEvent+`); `;
       db.query( statement,function(err,result){
           if(err){
