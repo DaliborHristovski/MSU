@@ -158,7 +158,11 @@ db.query(
 function getEventType(x){
   return new Promise(function(resolve, reject) {
     db.query(
-      `SELECT event.Type
+      `SELECT
+      event.EventStart,
+    event.EventEnd,
+    event.Type
+
       FROM university.event
       where idEvent = ?;`,
         x,
@@ -166,7 +170,7 @@ function getEventType(x){
         if (err) {
           console.log(err);
         }
-        resolve( result[0].Type);
+        resolve( result[0]);
       }
     ); 
   })    
@@ -464,15 +468,19 @@ if (req.session.user) {
  const idEvent = req.params.id;
  (async function(){
    // need to get the entire event and then send in eveType.Type for the type of event and calculate if the event is active  here to know if you should render the aplication section...
-  const [eveType] = await Promise.all([getEventType(idEvent)]);
+  const [eventData] = await Promise.all([getEventType(idEvent)]);
+  isCurrentEvent = (Date.now()>= eventData.EventStart && Date.now() <= eventData.EventEnd);
  (async function(){
-  const [subInfo,appInfo,studentInfo,] = await Promise.all([getSubjectInfo(username,idEvent,eveType),getAplicationInfo(username,idEvent),getStudentInfo(username)]);
+  const [subInfo,appInfo,studentInfo] = await Promise.all([getSubjectInfo(username,idEvent,eventData.Type),getAplicationInfo(username,idEvent),getStudentInfo(username)]);
+
+
 
     res.render("exam-apply",{
       prInfo: subInfo,
       appInfo: appInfo,
       sInfo: studentInfo,
-      idEvent:idEvent
+      idEvent:idEvent,
+      currEvent: isCurrentEvent
     });
 
 })();  
