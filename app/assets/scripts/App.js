@@ -39,8 +39,26 @@ for (var i = 0; i < btns.length; i++) {
         btns[i].addEventListener("click", function (evt) {
             var url = "http://localhost:3000/event/"+evt.currentTarget.getAttribute('data-value');
             // alert( url);
-            var xhr = new XMLHttpRequest();
-            xhr.open("post", url);
+
+            if(true){
+              //new way of handling redirect with AJAX
+              fetch(url, {
+                redirect: "manual"
+            }).then((res) => {
+                if (res.type === "opaqueredirect") {
+                    // redirect to login page
+                    window.location.href = response.url;
+                } else {
+                    // handle normally / pass on to next handler
+                    window.location.assign(url)
+                }
+            }).catch( function(e){
+              console.log("There was a problem with the redirect : " + e);
+            });
+            }else{
+              //Old way of handling redirect with hxrHttpRequest
+              var xhr = new XMLHttpRequest();
+            xhr.open("GET", url);
             //alert("the xlr.open got called");
 
             xhr.setRequestHeader("Accept", "*/*");
@@ -62,14 +80,12 @@ for (var i = 0; i < btns.length; i++) {
                 
               }
             };
-            
-
             var data = `{`.concat(`idEvent:`, evt.currentTarget.getAttribute('data-value'),`}`);
-           
             
             //alert( "before the send data");
             xhr.send(data);
             //alert("after the send data");
+            }
         }
         );
 

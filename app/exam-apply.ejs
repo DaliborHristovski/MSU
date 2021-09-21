@@ -69,6 +69,7 @@
 
         <div class="generic-content-container" id="prijavi" data-matching-link="#prijavi" style="padding-bottom: 50px;">
             <h1>Пријавени Испити</h1>
+            <%if(appInfo.length >0){%>
             <div id = "count-picked" data-value ="<%= appInfo.length %>" ></div>
             <table class="table-container__table" >
                 <thead class="table-container__thead">
@@ -94,6 +95,9 @@
                         </tr> 
                     <% }) %>              
             </table>
+            <%}else{%>
+                <h2>Немате пријавено ниту еден испит во оваа испитна сесија.</h2>
+                <%}%>
 
         </div>
         
@@ -135,7 +139,7 @@
         </form>
         <%} else{%>
             <div class="event-table-container__flexbox">
-            <h1 style="padding-bottom: 100px; padding-top: 50px;">Сесијата не е во тек.</h1>
+            <h2 style="padding-bottom: 100px; padding-top: 50px;">Сесијата не е во тек.</h2>
             </div>
         
             <%}%>

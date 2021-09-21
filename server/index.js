@@ -449,16 +449,9 @@ app.post("/login", (req, res, next) => {
     })
 });
 
-//when we pick one of the events 
-app.post("/event/:id", (req, res) => {
-  // if the session is active, that is if we are logged in we can load the page for logging in 
-  if (req.session.user) {
-   res.redirect('/event/'+req.params.id);   
-  } else {
-    res.send({ loggedIn: false });
-  }
-});
 
+
+//when we pick one of the events 
 app.get("/event/:id", (req, res) => {
 
   console.log("we are back in  event :" + req.params.id);

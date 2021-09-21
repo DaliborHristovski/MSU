@@ -11769,33 +11769,51 @@ for (var i = 0; i < btns.length; i++) {
   btns[i].addEventListener("click", function (evt) {
     var url = "http://localhost:3000/event/" + evt.currentTarget.getAttribute('data-value');
     // alert( url);
-    var xhr = new XMLHttpRequest();
-    xhr.open("post", url);
-    //alert("the xlr.open got called");
 
-    xhr.setRequestHeader("Accept", "*/*");
-    //xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    if (true) {
+      //new way of handling redirect with AJAX
+      fetch(url, {
+        redirect: "manual"
+      }).then(function (res) {
+        if (res.type === "opaqueredirect") {
+          // redirect to login page
+          window.location.href = response.url;
+        } else {
+          // handle normally / pass on to next handler
+          window.location.assign(url);
+        }
+      }).catch(function (e) {
+        console.log("There was a problem with the redirect : " + e);
+      });
+    } else {
+      //Old way of handling redirect with hxrHttpRequest
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", url);
+      //alert("the xlr.open got called");
 
-    //var win = window.open(url, '_self');
+      xhr.setRequestHeader("Accept", "*/*");
+      //xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState === 4) {
+      //var win = window.open(url, '_self');
 
-        console.log(xhr.status);
-        //alert( "before the writeln");
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
 
-        //win.document.writeln(xhr.responseText);
+          console.log(xhr.status);
+          //alert( "before the writeln");
 
-        //alert( "after the writeln");
-        document.write(xhr.responseText);
-      }
-    };
+          //win.document.writeln(xhr.responseText);
 
-    var data = "{".concat("idEvent:", evt.currentTarget.getAttribute('data-value'), "}");
+          //alert( "after the writeln");
+          document.write(xhr.responseText);
+        }
+      };
+      var data = "{".concat("idEvent:", evt.currentTarget.getAttribute('data-value'), "}");
 
-    //alert( "before the send data");
-    xhr.send(data);
-    //alert("after the send data");
+      //alert( "before the send data");
+      xhr.send(data);
+      //alert("after the send data");
+    }
   });
 }
 
