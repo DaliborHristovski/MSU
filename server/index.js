@@ -138,12 +138,12 @@ prijava_za_ispit
       JOIN student ON (snap.BrojNaIndex = student.BrojNaIndex)
       JOIN predmet ON (aktiviran_predmet.KodNaPredmet = predmet.KodNaPredmet)
       JOIN profesor ON (aktiviran_predmet.IDNaVaraboten = profesor.IDNaVraboten)
-      ) WHERE prijava_za_ispit.Status = 'Положена'
+      ) WHERE prijava_za_ispit.Status = 'Положена' AND student.BrojNaIndex = ?
       )AND student.BrojNaIndex = ?`;
 return new Promise(function(resolve, reject) {
 db.query(
   y,
-  x,
+  [x,x],
   (err, result) => {
     if (err) {
       console.log(err);
@@ -196,7 +196,7 @@ prijava_za_ispit
         JOIN student ON (snap.BrojNaIndex = student.BrojNaIndex)
         JOIN predmet ON (aktiviran_predmet.KodNaPredmet = predmet.KodNaPredmet)
         JOIN profesor ON (aktiviran_predmet.IDNaVaraboten = profesor.IDNaVraboten)
-        ) WHERE prijava_za_ispit.Status = 'Положена' OR prijava_za_ispit.idEvent = ?
+        ) WHERE (prijava_za_ispit.Status = 'Положена' OR prijava_za_ispit.idEvent = ?) AND student.BrojNaIndex = ?
         )AND student.BrojNaIndex = ?`;
     if(eveType == 2) 
     { y= y + ` AND predmet.Semestar IN ('II','IV','VI');`; }
@@ -209,7 +209,7 @@ prijava_za_ispit
   return new Promise(function(resolve, reject) {
     db.query(
       y,
-      [idEve,x],
+      [idEve,x,x],
       (err, result) => {
         if (err) {
           console.log(err);
@@ -392,6 +392,7 @@ app.get("/home/:id", (req, res) => {
     (async function(){
       const username = req.session.user[0].username;
       const [subInfo,studentInfo,eventInfo] = await Promise.all([getTotalSubjectInfo(username),getStudentInfo(username), getEventInfo()]);
+      
 
     res.render("home",{
       prInfo: subInfo,
@@ -463,7 +464,7 @@ if (req.session.user) {
   isCurrentEvent = (Date.now()>= eventData.EventStart && Date.now() <= eventData.EventEnd);
  (async function(){
   const [subInfo,appInfo,studentInfo] = await Promise.all([getSubjectInfo(username,idEvent,eventData.Type),getAplicationInfo(username,idEvent),getStudentInfo(username)]);
-
+  
 
 
     res.render("exam-apply",{
