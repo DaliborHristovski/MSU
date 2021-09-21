@@ -37,7 +37,7 @@ $('.subject-checkbox').on('change', function() {
 let btns = document.getElementsByName("myEventBlock");
 for (var i = 0; i < btns.length; i++) {
         btns[i].addEventListener("click", function (evt) {
-            var url = "http://localhost:3000/event/"+evt.currentTarget.getAttribute('data-value');
+            var url = "/event/"+evt.currentTarget.getAttribute('data-value');
             // alert( url);
 
             if(true){

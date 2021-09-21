@@ -34,7 +34,7 @@ app.use(express.json());
 //#################################################
 
 // /*needed to comment out the corrse check for development sake Build version should work fine with it eneabled
-// app.use( cors({origin: ["http://localhost:8000"],methods: ["GET", "POST"],credentials: true}));
+app.use( cors({origin: ["http://localhost:8000"],methods: ["GET", "POST"],credentials: true}));
 // */
 //#########################################################################################################
 
@@ -176,8 +176,6 @@ function getEventType(x){
   })    
 }
 
-
-
 function getSubjectInfo(x,idEve,eveType) {
     let y = `SELECT 
     predmet.ImeNaPredmet,
@@ -249,10 +247,10 @@ app.set("view engine", "ejs");
 //#################################################
 
 //used after building the project for deployment
-/*
+// /*
 app.set("views", path.join('../docs'));
-app.use("/static", express.static(path.resolve('../docs')));
-*/
+app.use("/", express.static(path.resolve('../docs')));
+// */
 //end of build block
 //#################################################
 
@@ -261,10 +259,10 @@ app.use("/static", express.static(path.resolve('../docs')));
 //#################################################
 
 //testing for browsersync with prebuilt version
-// /*
+/*
 app.use("/", express.static(path.resolve('../app')));
 app.set("views", path.join('../app/'));
-// */
+*/
 //end of test block
 //#################################################
 /* app.get("/login", (req, res) => {

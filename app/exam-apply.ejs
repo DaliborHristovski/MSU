@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1" />
     
-    <!-- build:css assets/styles/styles.css-->
-    <link rel='stylesheet' href="../temp/styles/styles.css">
+    <!-- build:css ./assets/styles/styles.css-->
+    <link rel='stylesheet' href="./temp/styles/styles.css">
     <!-- endbuild -->
 
-    <!-- build:js assets/scripts/Vendor.js-->
-    <script src="../temp/scripts/Vendor.js"></script>
+    <!-- build:js ./assets/scripts/Vendor.js-->
+    <script src="./temp/scripts/Vendor.js"></script>
     <!-- endbuild-->
 </head>
 
@@ -103,9 +103,9 @@
         
        
         <div class="event-table-container" >
-            <% if(currEvent) {%>
+            <% if(currEvent) { %>
          <h1>Предмети за Пријавување</h1>
-         
+         <%if(prInfo.length>0){%>
          <form  action="/subsin/<%= idEvent%>" method="POST">
           <div class="event-table-container__flexbox">
             <% 
@@ -137,6 +137,9 @@
         </div>
         </div>
         </form>
+        <%} else{%>
+            <h2 style="padding-bottom: 100px; padding-top: 50px;">Нема предмети за пријавување за оваа сесија.</h2>
+            <%}%>
         <%} else{%>
             <div class="event-table-container__flexbox">
             <h2 style="padding-bottom: 100px; padding-top: 50px;">Сесијата не е во тек.</h2>
@@ -176,8 +179,8 @@
         <div class="modal__close">X</div>
     </div>
     
-    <!-- build:js assets/scripts/App.js-->
-    <script src="../temp/scripts/App.js"></script>
+    <!-- build:js ./assets/scripts/App.js-->
+    <script src="./temp/scripts/App.js"></script>
     <!--  endbuild -->
 </body>
 
