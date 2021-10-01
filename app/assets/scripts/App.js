@@ -20,6 +20,7 @@ let modal = new Modal();
 
 let checked = 0;
 $('.subject-checkbox').on('change', function() {
+  console.log(checked);
   let limit = 5 - document.getElementById("count-picked").getAttribute("data-value");
   if($(this).is(':checked'))
     checked = checked+1;

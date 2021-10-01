@@ -11754,6 +11754,7 @@ var modal = new _Modal2.default();
 
 var checked = 0;
 (0, _jquery2.default)('.subject-checkbox').on('change', function () {
+  console.log(checked);
   var limit = 5 - document.getElementById("count-picked").getAttribute("data-value");
   if ((0, _jquery2.default)(this).is(':checked')) checked = checked + 1;
 
