@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1" />
     
-    <link rel="stylesheet" href="assets/styles/styles-4ab8413cd4.css"/>
+    <link rel="stylesheet" href="assets/styles/styles-68ccb29b9a.css"/>
 
     <script src="assets/scripts/Vendor-62387867cd.js"></script>
 </head>
@@ -26,8 +26,8 @@
                 <nav class="primary-nav primary-nav--pull-right">
                     <ul>
                         <li><a href="https://msu.edu.mk/">МСУ</a></li>
-                        <li><a href="#our-beginning" id="our-beginning-link">Историјат</a></li>
-                        <li><a href="#mapa" id="mapa-link">Мапа на Сајтот</a></li>
+                        <li><a href="#najava" id="najava-link">Најава</a></li>
+                        <li><a href="#fakulteti" id="fakulteti-link">Факултети</a></li>                        
                         <li><a href="#contact" id="contact-link">Контакт</a></li>
                     </ul>
                 </nav>
@@ -46,19 +46,20 @@
         <picture>
             <img srcset="assets/images/eucenje_msu_header_page.jpg" alt="Е-учење" class="large-hero__image">
         </picture>
-        <div class="large-hero__text-content">
+        <div class="large-hero__text-content ">
             <div class="wrapper wrapper--colored">
                 <h1 class="large-hero__title">Профил</h1>
                 <h2 class="large-hero__subtitle">Почетна/Профил</h2>
                 <p class="large-hero__description">Најави се за да можеш да ги користиш услугите.</p>
-                <p><a href="#najavi-se" id="najavi-se-link" class="btn btn--orange btn--large">Најави се</a></p>
+                <p><a href="#najava" id="najava-link" class="btn btn--orange btn--large">Најави се</a></p>
             </div>
         </div>
     </div>
 
-
+    <div id="najava" class="page-section page-section--login" data-matching-link="#najava-link">
     <div class="wrapper">
-    <div class="form-box" id="najavi-se" data-matching-link="#najavi-se-link">
+        <div class="wrapper wrapper--no-padding-until-large">
+    <div class="form-box">
         <h1>Најави се</h1>
         <form method="POST" action="/login">
         <div class="form-box__input">
@@ -69,36 +70,110 @@
             <span class="icon icon--key form-box__icon"></span>
             <input id="myInput" type="password" name="password" class="form-control" required="required" placeholder="Лозинка" />
             <span id="eye-icon" class="eye" onclick="myFunction()">
-            <span id="hide1" class="icon icon--eye form-box__icon"></span>
-            <span id="hide2" class="icon icon--eye-slash form-box__icon"></span>
+            <span id="hide1" class="icon icon--eye form-box__icon"> </span>
+            <span id="hide2" class="icon icon--eye icon--eye-slash form-box__icon"> </span>
             </span>
         </div>
         <button type="submit" class="login-btn">Најави се</button>
+        <script>
+            function myFunction(){
+            let x = document.getElementById("myInput");
+            let y = document.getElementById("hide1");
+            let z = document.getElementById("hide2");
+                if(x.type === 'password'){
+                x.type = "text";
+                y.style.display = "block";
+                z.style.display = "none"; 
+            }
+            else{
+                x.type = "password";
+                y.style.display = "none";
+                z.style.display = "block"; 
+            }
+            }
+        </script>
     </form>
     
     </div>
-    <script>
-        function myFunction(){
-        let x = document.getElementById("myInput");
-        let y = document.getElementById("hide1");
-        let z = document.getElementById("hide2");
-            if(x.type === 'password'){
-            x.type = "text";
-            y.display = block;
-            z.display = none;  
-        }
-        else{
-            x.type = "password";
-            y.display = none;
-            z.display = block;  
-        }
-        }
-    </script>
-     </div>
+</div>
+</div>
+</div>
+     <div id="fakulteti" class="page-section page-section--no-b-padding-until-large page-section--testimonials lazyload" data-matching-link="#fakulteti-link">
+        <div class="wrapper wrapper--no-padding-until-large">
+         
+        <h2 class="section-title section-title--blue"> 
+          
+          Нашите <strong>Факултети</strong></h2>
+    
+        <div class="row row--gutters row--equal-height-at-large row--gutters-small row--t-padding generic-content-container">
+            <div class="row__large-4">
+              <div class="testimonial">
+                <div class="testimonial__photo">
+                  <img class="lazyload" sizes="160px" data-srcset="assets/images/informatika.jpg 160w, assets/images/informatika.jpg 320w" alt="Факултет за информатика">
+                </div>
+                <h3 class="testimonial__title">Факултет за информатика</h3>
+                <h4 class="testimonial__subtitle">Упис во тек!</h3>
+                <p>&ldquo;Ќе имате можност да работите во најсовремените компјутерски лаборатории, да пишувате сопствени програми, да навлезете во основата на Веб дизајнот...&rdquo;</p>
+              </div>
+          </div>
+    
+            <div class="row__large-4">
+                <div class="testimonial">
+                  <div class="testimonial__photo">
+                    <img class="lazyload" sizes="160px" data-srcset="assets/images/bezbednosno.jpg 160w,assets/images/bezbednosno.jpg 320w" alt="Факултет за безбедносно инженерство">
+                  </div>
+                <h3 class="testimonial__title">Факултет за безбедносно инженерство</h3>
+                <h4 class="testimonial__subtitle">Упис во тек!</h3>
+                <p>&ldquo;Се повеќе работодавачи од домашни и странски претпријатија бараат дипломирани инженери од нашиот факултет, кој е единствен од овој тип во Република Северна Македонија.&rdquo;</p>
+            </div>
+            </div>
+    
+            <div class="row__large-4">
+              <div class="testimonial testimonial--last">
+                <div class="testimonial__photo">
+                  <img class="lazyload" sizes="160px" data-srcset="assets/images/praven.jpg 160w,assets/images/praven.jpg 320w" alt="Факултет за правни науки"></div>
+              <h3 class="testimonial__title">Факултет за правни науки</h3>
+              <h4 class="testimonial__subtitle">Упис во тек!</h3>
+              <p>&ldquo;Одлуката да се запишете на Факултетот за правни науки ќе допринесе да ги развиете и унапредите вашите комуникациски вештини, како и способности за решавање на комплексни проблеми.&rdquo;</p>
+              </div>        
+            </div>
+            </div>
+        </div>
+      </div>
    
 
+      <div id="contact" class="page-section page-section--contact" data-matching-link="#contact-link">
+      <div class="wrapper">
+        <div class="wrapper wrapper--no-padding-until-large">
+            
+      <div style="padding: 10px;"><h3 style="padding:10px">Контакт информации</h3>			
+        <div class=""><strong>Кампус СВЕТИ НИКОЛЕ</strong><br>
+        <div style="padding: 10px">
+            Телефон:
+        +389 32 440 330 
+        +389 32 440 202<br>
+        Адреса:
+        „Маршал Тито“ 77<br> 
+        2220 Свети Николе
+    </div>
+        <br><br>
+        <strong>Кампус БИТОЛА</strong><br>
+        <div style="padding: 10px">
+        Телефон:
+        +389 47 222 503 
+        +389 47 238 077<br>
+        Адреса:
+        „Новачки пат“ 16<br> 
+        7000 Битола</div>
+    </div>
+      </div>
+    </div>
+    </div>
+    </div>
+
+
     <footer class="site-footer">
-        <div class="wrapper" id="mapa" data-matching-link="#mapa-link">
+        <div class="wrapper" >
             <p><span class="site-footer__text">Copyright &copy; 2021 HD productions. All rights reserved.</span>
                 
             </p>
@@ -112,7 +187,8 @@
             </h2>
 
             <div class="wrapper wrapper--narrow">
-                <p class="modal__description">Connect with us on any of the platforms below!</p>
+                <p class="modal__description">Внесете ист број за полињата за корисник и лозинка во од 1 до 6 за да се логирате.
+                    <br>Контактирајте не на една од понудените платформи!</p>
             </div>
             <div class="social-icons">
                 <a href="" class="social-icons__icon"> <span class="icon icon--facebook"></span></a>
@@ -125,7 +201,7 @@
         <div class="modal__close">X</div>
     </div>
 
-    <script src="assets/scripts/App-a4ee86f5fa.js"></script>
+    <script src="assets/scripts/App-a65210c898.js"></script>
 </body>
 
 </html>
