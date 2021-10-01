@@ -9,8 +9,6 @@
             display: block;
         }
 
-
-
         &--row{
             display: contents;
 
@@ -28,7 +26,11 @@
             display: table-row;
             width: 100%;
             padding: 4px;
-            
+            display: flex;
+            flex-direction: column;
+            flex-basis: 100%;
+            flex: 1;
+            padding: 0px 0px 1px;            
                         
             @mixin atMedium{
             display: flex;
@@ -36,6 +38,15 @@
             flex-basis: 100%;
             flex: 1;
             padding: 2px;
+            }
+
+            button {
+                padding: 0px 0px 0px; 
+                margin: 0px 0px 0px;
+            }
+
+            &--spaced{
+                padding: 5px 0px 5px;
             }
 
             p {
@@ -59,26 +70,25 @@
             }
     
             input{
-                transform: scale(150%);
+                transform: scale(100%);
                 @mixin atMedium{
                 transform: scale(150%);
                 }
             }
 
             h3{
-                
+                transform: translateY(20%);
                 text-align:left;
                 text-justify: auto;
-                text-
+            
 
-                padding : 0.3em 0.6em 0.2em; 
+                padding : 0.3em 0.6em 0.3em; 
                 margin: 0px 0px 0px 0px;
                 font-family: sans-serif;
-                font-size: 1.5rem;
+                font-size: .9rem;
                 
                 @mixin atMedium{
                 text-align:left; 
-                padding : 20px 20px;
                 margin-left: 20px;
                 margin: 0px;
                 font-family: sans-serif;

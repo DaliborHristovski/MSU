@@ -23,6 +23,7 @@
     &--blue{
         background-color: $mainBlue;
         color: #FFF;
+        
     }
 
     &--testimonials{
@@ -30,10 +31,21 @@
 
         @mixin atLarge{
             &.lazyloaded {
-                background: url("../../assets/images/testimonials-bg.jpg") top center no-repeat;
+                background: url("../../assets/images/mapa-bg.jpg") top center no-repeat;
                 background-size: cover;
             }
         }
+    }
+
+    &--contact{
+        color: white; 
+        background-color: black; 
+        margin: 1.875rem 0px 0px;
+
+    }
+
+    &--login{
+
     }
 
 
