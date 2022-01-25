@@ -1,6 +1,6 @@
 # MSU
 
-To see the project running without building the project I recommend checking out my dockerized of this app: [MSU-Dockerized](https://github.com/DaliborHristovski/MSU-Dockerized)
+To see the project running without building the project or installing dependencies and setting and initinalizing a database, I recommend checking out my dockerized version of this app: [MSU-Dockerized](https://github.com/DaliborHristovski/MSU-Dockerized)
 
 ## About
 This app is made for presenting an automation and error reduction in the administrative process of applying for an university exam by using a web-app using a relational database.
